@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClinicaFrame extends javax.swing.JFrame {
     Registro registro;
-    Guardia[][] matriz1;
+    ArrayCasillas[][] matriz;
 
     /**
      * Creates new form ClinicaFrame
@@ -28,11 +29,13 @@ public class ClinicaFrame extends javax.swing.JFrame {
         initComponents();        
        
         
-        matriz1 = new Guardia[10][10];
-        registro = new Registro();
         
+        registro = new Registro();
+        matriz= new ArrayCasillas[30][12];
         datosIniciales();
         llenarComboBoxes();
+        llenarMatriz();
+        
     } 
     
     public void datosIniciales(){
@@ -62,14 +65,35 @@ public class ClinicaFrame extends javax.swing.JFrame {
             
         }
     }
-    
+    /**
+     * getposiciones nos da la posicion de la celda seleccionada
+     */
     public void getposiciones(){
         int x=0,y=0;
         x=jTable1.getSelectedRow();
         y=jTable1.getSelectedColumn()-1;
         System.out.println("Filas: "+x+" , Columna:"+y);
     }
-
+    /**
+     * Este metodo nos va a ayudar a llenar la matriz con random
+     */
+    public void llenarMatriz(){
+       
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                matriz[i][j]=getGuardiaRandom();
+            }
+        }
+    }
+    /**
+     * 
+     * @return un MEdico al azar
+     */
+    public ArrayCasillas getGuardiaRandom(){
+        ArrayCasillas t = new ArrayCasillas();
+        t.setIntegrantes(registro.getMedicoRandom(), registro.getEnfermeraRandom());
+        return t;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,6 +264,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel3.setText("Opciones Generales");
 
         jButtonVerGuardia.setText("Información Guardia");
+        jButtonVerGuardia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerGuardiaActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Calcular pago Guardias Extras");
 
@@ -347,6 +376,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButtonSalir.setText("SALIR");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -375,6 +409,18 @@ public class ClinicaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonVerGuardiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerGuardiaActionPerformed
+        // TODO add your handling code here:
+        getposiciones();
+        
+        
+    }//GEN-LAST:event_jButtonVerGuardiaActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments

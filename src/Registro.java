@@ -170,7 +170,50 @@ public class Registro{
             
             return DPIMedicos;
         }
-        
+        /**
+         * este metodo me devuelve un metodo random
+         * @return un objeto de tipo medico
+         */
+        public Medico getMedicoRandom(){
+            Medico m=null;
+            Guardia t;
+            int cantidad=0;
+            Guardia s;
+            for (int i = 0; i < medicosenfermeras.size(); i++) {
+                s= medicosenfermeras.get(i);
+                if (s instanceof Medico) {
+                    cantidad++;
+                }
+            }
+            Medico[] mm= new Medico[cantidad];
+            int Min=0,Max=mm.length,numero;
+            numero=(int) (Math.random() *(Max-Min)+Min);
+            m=mm[numero];      
+            return m;
+        }
+           /**
+         * este metodo me devuelve un objeto tipo enfermera 
+         * @return un objeto de tipo enfermera
+         */
+        public Enfermera getEnfermeraRandom(){
+            Enfermera m=null;
+            Guardia t;
+            int cantidad=0;
+            Guardia s;
+            for (int i = 0; i < medicosenfermeras.size(); i++) {
+                s= medicosenfermeras.get(i);
+                if (s instanceof Enfermera) {
+                    cantidad++;
+                }
+            }
+            Enfermera[] mm= new Enfermera[cantidad];
+            int Min=0,Max=mm.length,numero;
+            numero=(int) (Math.random() *(Max-Min)+Min);
+            m=mm[numero];
+                   
+            return m;
+        }
+	
        
   
     
